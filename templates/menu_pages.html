@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block menu %}
+{% if items %}
+  {% for item in items %}
+     <p> {{ item.name }}  -  {{ item.url }}</p>
+  {% endfor %}
+{% endif %}
+
+{% for parent in parents %}
+     <p> Parent: {{ parent.name }}</p>
+{% endfor %}
+
+{% for child in childs %}
+     <p> Child: {{ child.name }}</p>
+{% endfor %}
+
+
+    <p> PATH: {{ path }} </p>
+    <p> {{ active_item }} </p>
+{% endblock %}

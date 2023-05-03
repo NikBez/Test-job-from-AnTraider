@@ -1,21 +1,14 @@
 {% extends "base.html" %}
+{% load draw_menu %}
 
 {% block menu %}
-{% if items %}
-  {% for item in items %}
-     <p> {{ item.name }}  -  {{ item.url }}</p>
-  {% endfor %}
-{% endif %}
+    <div>
 
-{% for parent in parents %}
-     <p> Parent: {{ parent.name }}</p>
-{% endfor %}
+        {% draw_menu 'Main menu' %}
 
-{% for child in childs %}
-     <p> Child: {{ child.name }}</p>
-{% endfor %}
-
-
-    <p> PATH: {{ path }} </p>
-    <p> {{ active_item }} </p>
+         {% draw_menu 'Footer menu' %}
+    </div>
+    <div id="content">
+        <h1>Welcome to my webpage</h1>
+    </div>
 {% endblock %}

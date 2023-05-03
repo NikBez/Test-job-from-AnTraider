@@ -1,4 +1,6 @@
 from django import template
+from django.utils.safestring import mark_safe
+
 from tree_menu.models import MenuItem
 
 
@@ -17,12 +19,12 @@ def draw_menu(context, menu_name):
             active = ''
             if context['request'].path.startswith(item.url):
                 active = 'active'
-            res += f'<li class="{active}"><a href="{item.url}">{item.label}</a>'
-            if item.children.exists():
+            res += f'<li class="{active}"><a href="/{item.url}">{item.name}</a>'
+            if item.children.exists() and item.url in context['request'].path:
                 res += render_menu_items(item.children.all())
             res += '</li>'
         res += '</ul>'
-        return res
+        return mark_safe(res)
 
     return render_menu_items(root_items)
 

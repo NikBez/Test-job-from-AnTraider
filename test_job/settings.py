@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # local_apps
     'tree_menu',
-    #side_apps
+    # side_apps
     'debug_toolbar',
 ]
 

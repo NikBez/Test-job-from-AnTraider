@@ -3,26 +3,29 @@ from django.utils.safestring import mark_safe
 
 from tree_menu.models import MenuItem
 
-
 register = template.Library()
+
 
 @register.simple_tag(takes_context=True)
 def draw_menu(context, menu_name):
-    root_items = MenuItem.objects.filter(parent__isnull=True, menu__name=menu_name).prefetch_related('children__children')
+    root_items = MenuItem.objects.filter(
+        parent__isnull=True, menu__name=menu_name
+    ).prefetch_related("children__children")
 
     if not root_items:
-        return ''
+        return ""
 
     def render_menu_items(menu_items):
-        res = '<ul>'
+        res = "<ul>"
         for item in menu_items:
-            active = ''
-            if context['request'].path.startswith(item.url):
-                active = 'active'
+            active = ""
+            if context["request"].path.startswith(item.url):
+                active = "active"
             res += f'<li class="{active}"><a href="/{item.url}">{item.name}</a>'
-            if item.children.exists() and item.url in context['request'].path:
+            if item.children.exists() and item.url in context["request"].path:
                 res += render_menu_items(item.children.all())
-            res += '</li>'
-        res += '</ul>'
+            res += "</li>"
+        res += "</ul>"
         return res
-    return mark_safe(f'<p>{menu_name}</p>' + render_menu_items(root_items))
+
+    return mark_safe(f"<p>{menu_name}</p>" + render_menu_items(root_items))

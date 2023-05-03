@@ -8,7 +8,7 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def draw_menu(context, menu_name):
-    root_items = MenuItem.objects.filter(parent__isnull=True, menu__name=menu_name).prefetch_related('children')
+    root_items = MenuItem.objects.filter(parent__isnull=True, menu__name=menu_name).prefetch_related('children__children')
 
     if not root_items:
         return ''

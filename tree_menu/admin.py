@@ -4,11 +4,9 @@ from .models import MenuItem, Menu
 
 @admin.register(MenuItem)
 class MenuItemAdmin(admin.ModelAdmin):
-    # fields = ['name', ]
-    list_display = ['name']
+    list_display = ['name', 'url', 'parent', 'menu']
 
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
-    fields = ['name']
     list_display = ['name']
